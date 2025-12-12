@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+ <!-- coding by shehan jayathissa -->
+ <html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>2026 Countdown — Confetti Theme</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,Arial}
+  body{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg,#0f172a 0%, #061024 60%, #021220 100%);
+    color:#fff;padding:24px;
+  }
+  .card{width:100%;max-width:920px;background:rgba(255,255,255,0.03);border-radius:16px;padding:28px;text-align:center;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+  h1{font-size:2rem;margin-bottom:14px}
+  .subtitle{opacity:0.9;margin-bottom:18px}
+  .count{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .item{min-width:110px;background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));padding:18px;border-radius:10px}
+  .num{font-size:2.2rem;font-weight:800;letter-spacing:0.6px}
+  .lbl{opacity:0.8;margin-top:6px;font-size:0.95rem}
+  .note{margin-top:14px;opacity:0.85;font-size:0.95rem}
+  /* confetti pieces */
+  .confetti{position:absolute;inset:0;pointer-events:none}
+  .c{position:absolute;width:12px;height:8px;opacity:0.95;transform-origin:center;animation:fall 4s linear infinite}
+  @keyframes fall{
+    0%{transform:translateY(-15vh) rotate(0) translateX(0);opacity:1}
+    100%{transform:translateY(110vh) rotate(720deg) translateX(60px);opacity:0.95}
+  }
+  /* variety by nth-child */
+  .c:nth-child(odd){border-radius:2px}
+  .c:nth-child(2n){border-radius:50%}
+  /* position and animation delay variations */
+  .c1{left:5%;animation-duration:5s;animation-delay:0s;background:#ff5c8a}
+  .c2{left:18%;animation-duration:4.2s;animation-delay:0.3s;background:#ffd166}
+  .c3{left:28%;animation-duration:4.6s;animation-delay:0.6s;background:#6ee7b7}
+  .c4{left:40%;animation-duration:5.3s;animation-delay:0.1s;background:#60a5fa}
+  .c5{left:52%;animation-duration:4.8s;animation-delay:0.8s;background:#b28bff}
+  .c6{left:64%;animation-duration:5.6s;animation-delay:0.2s;background:#ffb86b}
+  .c7{left:76%;animation-duration:4.4s;animation-delay:0.5s;background:#ff6b6b}
+  .c8{left:88%;animation-duration:5.1s;animation-delay:0.15s;background:#21d4fd}
+  @media(max-width:520px){.item{min-width:78px;padding:12px}.num{font-size:1.4rem}}
+</style>
+</head>
+<body>
+  <div class="card" role="main" aria-live="polite">
+    <h1>🎊 2026 New Year — Countdown</h1>
+    <div class="subtitle">Get ready — new beginnings are coming!</div>
+
+    <div class="count">
+      <div class="item"><div id="days" class="num">0</div><div class="lbl">Days</div></div>
+      <div class="item"><div id="hours" class="num">00</div><div class="lbl">Hours</div></div>
+      <div class="item"><div id="minutes" class="num">00</div><div class="lbl">Minutes</div></div>
+      <div class="item"><div id="seconds" class="num">00</div><div class="lbl">Seconds</div></div>
+    </div>
+
+    <div class="note">Share this link with friends — no registration needed.</div>
+
+    <div class="confetti" aria-hidden="true">
+      <div class="c c1"></div><div class="c c2"></div><div class="c c3"></div><div class="c c4"></div>
+      <div class="c c5"></div><div class="c c6"></div><div class="c c7"></div><div class="c c8"></div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  const target = new Date("January 1, 2026 00:00:00").getTime();
+  const $ = id=>document.getElementById(id);
+  function pad(n){return n.toString().padStart(2,'0')}
+  function update(){
+    const now = Date.now(); const gap = target - now;
+    if(gap<=0){['days','hours','minutes','seconds'].forEach(id=>$(id).innerText='00'); clearInterval(t); return;}
+    const s=1000, m=60*s, h=60*m, d=24*h;
+    const days=Math.floor(gap/d), hours=Math.floor((gap%d)/h), minutes=Math.floor((gap%h)/m), seconds=Math.floor((gap%m)/s);
+    $('days').innerText=days; $('hours').innerText=pad(hours); $('minutes').innerText=pad(minutes); $('seconds').innerText=pad(seconds);
+  }
+  update(); const t=setInterval(update,1000);
+})();
+</script>
+</body>
+</html>
